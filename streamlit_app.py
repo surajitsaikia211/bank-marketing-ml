@@ -18,7 +18,7 @@ st.title("🏦 Bank Marketing (UCI) — Classification Models Dashboard")
 
 st.caption("Upload a small **test CSV** → choose model → view metrics, confusion matrix & classification report. "
            "CSV can be comma **or** semicolon separated (the app auto-detects).")
-
+"""
 # ---------- Show precomputed metrics ----------
 st.subheader("✅ Precomputed Evaluation Metrics (on holdout split)")
 try:
@@ -27,7 +27,7 @@ try:
 except Exception:
     st.warning("metrics.csv not found — run: `python model/train_models.py --data_path data/bank.csv`")
     st.stop()
-
+"""
 # ---------- Model selection ----------
 st.subheader("✅ Model Selection")
 model_map = {
