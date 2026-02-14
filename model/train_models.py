@@ -72,7 +72,7 @@ def prepare_xy(df: pd.DataFrame):
 
 
 def build_preprocessor(dense_output: bool = True) -> ColumnTransformer:
-    cat_enc = OneHotEncoder(handle_unknown="ignore", sparse=not dense_output)
+    cat_enc = OneHotEncoder(handle_unknown="ignore", sparse_output=not dense_output)
     num_pipe = Pipeline([
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler())
