@@ -88,7 +88,7 @@ st.dataframe(df_up.head(10), use_container_width=True)
 st.subheader("✅ Model Selection")
 
 model_map = {
-    "Logistic Regression": BASE_DIR / "model" / "logistic_regression.joblib",
+    "Logistic Regression": BASE_DIR / "model" / "logistic_regression.pkl",
     "Decision Tree":       BASE_DIR / "model" / "decision_tree.joblib",
     "KNN":                 BASE_DIR / "model" / "knn.joblib",
     "Naive Bayes":         BASE_DIR / "model" / "naive_bayes.joblib",
