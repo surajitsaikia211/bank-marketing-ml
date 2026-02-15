@@ -257,7 +257,6 @@ joblib.dump(models["Random Forest"], "model/random_forest_model.pkl")
 joblib.dump(models["XGBoost"], "model/xgboost_model.pkl")
 
 print("✅ All 6 models saved in /model folder")
-# Ready to upload 
 
 # Load original dataset
 df = pd.read_csv("bank-marketing.csv", sep=";")
