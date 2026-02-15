@@ -1,5 +1,5 @@
 
-# Bank Marketing – Multi-Model Classification (Streamlit + Deployment)
+# Bank Marketing – Multi-Model Binary Classification (Streamlit + Deployment)
 
 > End-to-end ML workflow: data preparation, six classification models, evaluation metrics, Streamlit app, and deployment on Streamlit Community Cloud.
 
