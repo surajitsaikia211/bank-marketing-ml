@@ -6,12 +6,15 @@ import numpy as np
 import streamlit as st
 import seaborn as sns
 import matplotlib.pyplot as plt
+from pathlib import Path
+import os
 
 from joblib import load
 from sklearn.metrics import (
     accuracy_score, roc_auc_score, precision_score, recall_score,
     f1_score, matthews_corrcoef, confusion_matrix, classification_report
 )
+BASE_DIR = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd()
 
 st.set_page_config(page_title="Bank Marketing — ML Models", layout="wide")
 st.title("🏦 Bank Marketing — Classification Models Dashboard")
@@ -25,7 +28,7 @@ try:
     metrics_df = pd.read_csv("model/metrics.csv")
     st.dataframe(metrics_df, use_container_width=True)
 except Exception:
-    st.warning("metrics.csv not found — run: `python model/train_models.py --data_path data/bank.csv`")
+    st.warning("metrics.csv not found — run: `python model/train_models.py --data_path data/bank-marketing.csv`")
     st.stop()
 
 # ---------- Load required feature list ----------
@@ -83,13 +86,14 @@ st.dataframe(df_up.head(10), use_container_width=True)
 
 # ---------- Model selection ----------
 st.subheader("✅ Model Selection")
+
 model_map = {
-    "Logistic Regression": "model/logistic_regression.joblib",
-    "Decision Tree": "model/decision_tree.joblib",
-    "KNN": "model/knn.joblib",
-    "Naive Bayes": "model/naive_bayes.joblib",
-    "Random Forest": "model/random_forest.joblib",
-    "XGBoost": "model/xgboost.joblib",
+    "Logistic Regression": BASE_DIR / "model" / "logistic_regression.joblib",
+    "Decision Tree":       BASE_DIR / "model" / "decision_tree.joblib",
+    "KNN":                 BASE_DIR / "model" / "knn.joblib",
+    "Naive Bayes":         BASE_DIR / "model" / "naive_bayes.joblib",
+    "Random Forest":       BASE_DIR / "model" / "random_forest.joblib",
+    "XGBoost":             BASE_DIR / "model" / "xgboost.joblib",
 }
 
 model_options = ["Select"] + list(model_map.keys())
