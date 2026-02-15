@@ -115,10 +115,6 @@ if uploaded_file is not None:
     for col in numeric_cols:
         X_test[col] = pd.to_numeric(X_test[col], errors="coerce")
 
-
-    st.write("Data types after fix:")
-    st.write(X_test.dtypes)
-
     # Preprocess
     X_test_processed = preprocessor.transform(X_test)
 
