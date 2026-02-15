@@ -22,7 +22,7 @@ This assignment covers the complete ML lifecycle: modeling, evaluation, UI devel
   - **Categorical:** `job`, `marital`, `education`, `default`, `housing`, `loan`, `contact`, `month`, `poutcome`
 - **File Format:** CSV (the original UCI file is semicolon `;` separated; the project supports both `;` and `,`)
 
-> **Data location in repo:** `data/bank.csv`
+> **Data location in repo:** `data/bank-marketing.csv`
 
 ---
 
@@ -66,4 +66,3 @@ The following **six** models were implemented on the **same dataset**:
 
 ---
 
-## Project Structure (Reference)
