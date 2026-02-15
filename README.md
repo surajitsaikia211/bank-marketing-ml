@@ -53,7 +53,7 @@ The following **six** models were implemented on the **same dataset**:
 
 ## Observations about Model Performance 
 
-> Add dataset-specific insights for each model based on your results. You may use the following as a starting point and refine after you see your metrics.
+> Added dataset-specific insights for each model based on metrics results. 
 
 | ML Model Name             | Observation about model performance |
 |---------------------------|-------------------------------------|
