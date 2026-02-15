@@ -167,9 +167,9 @@ def main(data_path: str):
         m = evaluate(pipe, X_test, y_test)
         m["Model"] = name
         results.append(m)
-        # Save model
+        # Save model with compression to reduce file size (no change to predictions)
         fname = name.lower().replace(" ", "_")
-        dump(pipe, f"model/{fname}.joblib")
+        dump(pipe, f"model/{fname}.joblib", compress=("xz", 9))
 
     # Save metrics
     metrics_df = pd.DataFrame(results)[
@@ -177,10 +177,14 @@ def main(data_path: str):
     ].sort_values(by="AUC", ascending=False)
     metrics_df.to_csv("model/metrics.csv", index=False)
 
-    # Save a small test CSV for Streamlit uploads (keeps free tier happy)
+    # Save a small test CSV for Streamlit uploads
     test_out = X_test.copy()
-    test_out["y"] = y_test.values
-    test_out.sample(n=min(200, len(test_out)), random_state=42).to_csv(
+    
+    # Convert numeric y back to yes/no (original format)
+    y_export = y_test.map({1: "yes", 0: "no"})
+    test_out["y"] = y_export
+
+    test_out.sample(n=min(500, len(test_out)), random_state=42).to_csv(
         "model/test_sample.csv", index=False
     )
 
@@ -191,7 +195,7 @@ def main(data_path: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="data/bank.csv",
+    parser.add_argument("--data_path", type=str, default="data/bank-marketing.csv",
                         help="Path to CSV with required columns.")
     args = parser.parse_args()
     main(args.data_path)
