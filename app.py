@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -37,11 +36,11 @@ preprocessor, models = load_assets()
 # ----------------------------
 # Upload CSV (test data)
 # ----------------------------
-st.subheader("1️⃣ Upload CSV Test Data")
 
-uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+st.subheader("✅ Upload Test CSV")
+st.info("Tip: Use the sample at **model/test_sample.csv** for a quick demo. ")
 
-st.info("✅ Your uploaded CSV must contain the **same feature columns** as training data, and also the target column named **y** (yes/no or 0/1).")
+uploaded_file = st.file_uploader("Upload CSV (comma or semicolon separated)", type=["csv"])
 
 if uploaded_file is not None:
     df_test = pd.read_csv(uploaded_file)
@@ -63,9 +62,9 @@ if uploaded_file is not None:
     # ----------------------------
     # Select Model
     # ----------------------------
-    st.subheader("2️⃣ Select Model")
+    st.subheader("✅ Model Selection")
 
-    model_options = ["Select a model"] + list(models.keys())
+    model_options = ["Select"] + list(models.keys())
 
     selected_model_name = st.selectbox(
     "Choose a classifier model:",
@@ -73,7 +72,7 @@ if uploaded_file is not None:
     index=0
     )
 
-    if selected_model_name == "Select a model":
+    if selected_model_name == "Select":
        st.warning("Please choose a model to continue.")
        st.stop()
 
@@ -82,7 +81,7 @@ if uploaded_file is not None:
     # ----------------------------
     # Predict + Metrics
     # ----------------------------
-    st.subheader("3️⃣ Results & Performance Metrics")
+    st.subheader("✅ Results & Performance Metrics")
     expected_cols = preprocessor.feature_names_in_
     missing = set(expected_cols) - set(X_test.columns)
     if missing:
@@ -158,7 +157,7 @@ if uploaded_file is not None:
     col6.metric("F1 Score", f"{f1:.4f}")
 
     # Confusion matrix and report
-    st.subheader("4️⃣ Confusion Matrix & Classification Report")
+    st.subheader("✅ Confusion Matrix & Classification Report")
 
     cm = confusion_matrix(y_test, y_pred)
     st.write("Confusion Matrix:")
@@ -168,7 +167,7 @@ if uploaded_file is not None:
     st.text(classification_report(y_test, y_pred, zero_division=0))
 
     # Show predictions
-    st.subheader("5️⃣ Predictions Output")
+    st.subheader("✅ Predictions Output")
     output_df = X_test.copy()
     output_df["Actual_y"] = y_test.values
     output_df["Predicted_y"] = y_pred
