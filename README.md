@@ -40,14 +40,14 @@ The following **six** models were implemented on the **same dataset**:
 
 > After running `python train_models.py`, saved metrics results at `model/metrics.csv`.  
 
-| ML Model Name             | Accuracy | AUC      | Precision | Recall    | F1       | MCC      |
-|---------------------------|----------|----------|-----------|-----------|----------|----------|
-| Logistic Regression       | 0.901250 | 0.905574 | 0.644483  | 0.347826  | 0.451811 | 0.426058 |
-| Decision Tree             | 0.872830 | 0.700865 | 0.458182  | 0.476371  | 0.467099 | 0.395027 |
-| kNN                       | 0.898596 | 0.850027 | 0.625668  | 0.331758  | 0.433601 | 0.407007 |         
-| Naive Bayes               | 0.854805 | 0.810095 | 0.405904  | 0.519849  | 0.455864 | 0.377358 |          
-| Random Forest (Ensemble)  | 0.908106 | 0.929519 | 0.676516  | 0.411153  | 0.511464 | 0.481630 |          
-| XGBoost (Ensemble)        | 0.910649 | 0.934451 | 0.658629  | 0.490548  | 0.562297 | 0.520645 | 
+| ML Model Name             | Accuracy | AUC      | Precision | Recall    | F1       | MCC     |
+|---------------------------|----------|----------|-----------|-----------|----------|---------|
+| Logistic Regression       | 0.9012   | 0.9056   | 0.6445    | 0.3478    | 0.4518   | 0.4261  |  
+| Decision Tree             | 0.8728   | 0.7009	  | 0.4582	  | 0.4764	  | 0.4671	 | 0.395   |
+| kNN                       | 0.8986   | 0.85	    | 0.6257	  | 0.3318	  | 0.4336	 | 0.407   |          
+| Naive Bayes               | 0.8548   | 0.8101	  | 0.4059	  | 0.5198	  | 0.4559	 | 0.3774  |          
+| Random Forest (Ensemble)  | 0.8976   | 0.9207	  | 0.7157	  | 0.207	    | 0.3211	 | 0.3486  |          
+| XGBoost (Ensemble)        | 0.9093   | 0.9348	  | 0.6591	  | 0.466 	  | 0.546	   | 0.5065  | 
 
 ---
 
@@ -58,11 +58,11 @@ The following **six** models were implemented on the **same dataset**:
 | ML Model Name             | Observation about model performance |
 |---------------------------|-------------------------------------|
 | **Logistic Regression**   | Strong baseline with good AUC (0.9056) and decent precision (0.6445). Recall is modest (0.3478), indicating it misses several positives in this imbalanced dataset. |
-| **Decision Tree**         | nterpretable but comparatively weaker AUC (0.7009). Balanced precision/recall (~0.46–0.48) but overall lags behind ensembles. Potential overfitting without pruning/tuning. |
+| **Decision Tree**         | Interpretable but comparatively weaker AUC (0.7009). Balanced precision/recall (~0.46–0.48) but overall lags behind ensembles. Potential overfitting without pruning/tuning. |
 | **kNN**                   | Reasonable precision (0.6257) but the lowest recall (0.3318) among non‑NB models; sensitive to feature scaling and high dimensionality. |
 | **Naive Bayes**           | Best recall (0.5198) among non‑boosted models, but precision is low (0.4059), leading to more false positives; overall accuracy and AUC are modest. |
-| **Random Forest (Ensemble)** | Strong overall—high AUC (0.9295) and best precision (0.6765); recall remains moderate (0.4112). Very good MCC (0.4816), indicating robust balanced performance. |
-| **XGBoost (Ensemble)**    | Best overall—highest accuracy (0.9106), AUC (0.9345), F1 (0.5623), and MCC (0.5206). Recall (0.4905) improves over LR/KNN/RF while keeping solid precision. With threshold tuning or class weighting, it can likely recover even more recall. |
+| **Random Forest (Ensemble)** | Strong overall—high AUC (0.9207) and best precision (0.7157); recall remains moderate (0.207). Very good MCC (0.3486), indicating robust balanced performance. |
+| **XGBoost (Ensemble)**    | Best overall—highest accuracy (0.9093), AUC (0.9348), F1 (0.546), and MCC (0.5065). Recall (0.466) improves over LR/KNN/RF while keeping solid precision. With threshold tuning or class weighting, it can likely recover even more recall. |
 
 ---
 
