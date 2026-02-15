@@ -36,9 +36,9 @@ The following **six** models were implemented on the **same dataset**:
 5. Random Forest (Ensemble)  
 6. XGBoost (Ensemble)
 
-### Comparison Table (Paste generated results here)
+### Comparison Table (Generated results here)
 
-> After running `python train_models.py`, a Markdown table is generated at `model/metrics.csv`.  
+> After running `python train_models.py`, saved metrics results at `model/metrics.csv`.  
 
 | ML Model Name             | Accuracy | AUC  | Precision | Recall | F1   | MCC  |
 |---------------------------|----------|------|-----------|--------|------|------|
