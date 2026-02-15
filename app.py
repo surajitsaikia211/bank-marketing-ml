@@ -9,10 +9,11 @@ from sklearn.metrics import (
     roc_auc_score, matthews_corrcoef, confusion_matrix, classification_report
 )
 
-st.set_page_config(page_title="ML Assignment 2 - Classifier App", layout="wide")
+st.set_page_config(page_title="Bank Marketing — ML Models", layout="wide")
+st.title("🏦 Bank Marketing — Classification Models Dashboard")
 
-st.title("📌 ML Assignment 2 - Classification Models Comparison App")
-st.write("Upload a **CSV test dataset**, select a model, and get predictions + evaluation metrics.")
+st.caption("Upload a small **test CSV** → choose model → view metrics, confusion matrix & classification report. "
+           "CSV can be comma **or** semicolon separated (the app auto-detects).")
 
 # ----------------------------
 # Load preprocessor + models
