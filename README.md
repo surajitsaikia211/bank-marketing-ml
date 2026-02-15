@@ -12,7 +12,7 @@ This assignment covers the complete ML lifecycle: modeling, evaluation, UI devel
 
 ---
 
-## b. Dataset Description  *(1 mark)*
+## b. Dataset Description
 
 - **Dataset:** Bank Marketing Data Set (UCI Machine Learning Repository)  
 - **Task:** Binary classification (`yes` / `no`)  
