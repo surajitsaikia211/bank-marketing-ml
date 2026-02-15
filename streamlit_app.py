@@ -14,11 +14,11 @@ from sklearn.metrics import (
 )
 
 st.set_page_config(page_title="Bank Marketing — ML Models", layout="wide")
-st.title("🏦 Bank Marketing (UCI) — Classification Models Dashboard")
+st.title("🏦 Bank Marketing — Classification Models Dashboard")
 
 st.caption("Upload a small **test CSV** → choose model → view metrics, confusion matrix & classification report. "
            "CSV can be comma **or** semicolon separated (the app auto-detects).")
-"""
+
 # ---------- Show precomputed metrics ----------
 st.subheader("✅ Precomputed Evaluation Metrics (on holdout split)")
 try:
@@ -26,23 +26,6 @@ try:
     st.dataframe(metrics_df, use_container_width=True)
 except Exception:
     st.warning("metrics.csv not found — run: `python model/train_models.py --data_path data/bank.csv`")
-    st.stop()
-    """
-# ---------- Model selection ----------
-st.subheader("✅ Model Selection")
-model_map = {
-    "Logistic Regression": "model/logistic_regression.joblib",
-    "Decision Tree": "model/decision_tree.joblib",
-    "KNN": "model/knn.joblib",
-    "Naive Bayes": "model/naive_bayes.joblib",
-    "Random Forest": "model/random_forest.joblib",
-    "XGBoost": "model/xgboost.joblib",
-}
-model_name = st.selectbox("Choose a model", list(model_map.keys()))
-try:
-    model = load(model_map[model_name])
-except Exception:
-    st.error("Saved model not found. Please train models first.")
     st.stop()
 
 # ---------- Load required feature list ----------
@@ -55,8 +38,7 @@ except Exception:
 
 # ---------- CSV upload ----------
 st.subheader("✅ Upload Test CSV")
-st.info("Tip: Use the small sample at **model/test_sample.csv** for a quick demo. "
-        "On Streamlit Community Cloud free tier, upload only small test files.")
+st.info("Tip: Use the sample at **model/test_sample.csv** for a quick demo. ")
 
 uploaded = st.file_uploader("Upload CSV (comma or semicolon separated)", type=["csv"])
 
@@ -76,9 +58,9 @@ def read_clean_csv(file) -> pd.DataFrame:
 
 def normalize_target(y_series: pd.Series) -> pd.Series:
     y = y_series.astype(str).str.lower().str.strip()
-    mapping = {"yes": 1, "no": 0}
+    mapping = {"yes": 1, "no": 0, "1":1, "0":0}
     if not y.isin(mapping).all():
-        raise ValueError("Target 'y' must contain only 'yes' or 'no'.")
+        raise ValueError("Target 'y' must contain only 'yes' or 'no' or 1 or 0.")
     return y.map(mapping).astype(int)
 
 def compute_metrics(y_true, y_pred, y_score=None):
@@ -98,6 +80,30 @@ if uploaded is None:
 df_up = read_clean_csv(uploaded)
 st.write("**Preview (top 10 rows):**")
 st.dataframe(df_up.head(10), use_container_width=True)
+
+# ---------- Model selection ----------
+st.subheader("✅ Model Selection")
+model_map = {
+    "Logistic Regression": "model/logistic_regression.joblib",
+    "Decision Tree": "model/decision_tree.joblib",
+    "KNN": "model/knn.joblib",
+    "Naive Bayes": "model/naive_bayes.joblib",
+    "Random Forest": "model/random_forest.joblib",
+    "XGBoost": "model/xgboost.joblib",
+}
+
+model_options = ["Select"] + list(model_map.keys())
+model_name = st.selectbox("Choose a model", model_options)
+
+if model_name == "Select":
+    st.warning("Please select a model to proceed.")
+    st.stop()
+    
+try:
+    model = load(model_map[model_name])
+except Exception:
+    st.error("Saved model not found. Please train models first.")
+    st.stop()
 
 # Validate columns
 missing = [c for c in required_features if c not in df_up.columns]
@@ -134,6 +140,14 @@ if "y" in df_up.columns:
         ax.set_ylabel("Actual")
         st.pyplot(fig)
 
+    
+        cm_df = pd.DataFrame(
+        cm,
+        index=["True: no (0)", "True: yes (1)"],
+        columns=["Pred: no (0)", "Pred: yes (1)"]
+        )
+        st.table(cm_df)
+
         st.subheader("✅ Classification Report")
         report = classification_report(y_true, y_pred, target_names=["no (0)", "yes (1)"], zero_division=0)
         st.text(report)
@@ -141,4 +155,3 @@ if "y" in df_up.columns:
         st.warning(f"Could not compute metrics because of the target column: {e}")
 else:
     st.info("No target column 'y' found in uploaded CSV → showing predictions only.")
-
